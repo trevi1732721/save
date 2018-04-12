@@ -7,8 +7,8 @@ import java.util.Scanner;
  * Created by TreVi1732721 on 2018-02-26.
  */
 public class Main implements Serializable{
-    public Map<String, Contact> listeContact = new HashMap<String, Contact>();
-    public Contact nouveauContact = new Contact();
+    public static HashMap<String, Contact> listeContact = new HashMap<String, Contact>();
+    public static Contact nouveauContact = new Contact();
     public static void main(String[] args) {
 
         //new liste
@@ -17,7 +17,10 @@ public class Main implements Serializable{
         Scanner sc = new Scanner(System.in);
         int nbContact = 0;
         int choix = 0;
+
+        Charger();
        while(run){
+
            System.out.println("Que voulez vous faire?" +
                    "\n1- Nouveau contact" +
                    "\n2- Afficher les contacts" +
@@ -27,7 +30,7 @@ public class Main implements Serializable{
            switch(sc.nextInt()){
                case 1:
                    nouveauContact.NewContact();
-                   listeContact.put("1",nouveauContact);
+                   listeContact.put(nouveauContact.getPrenom(),nouveauContact);
                    nbContact++;
                    break;
                case 2:
@@ -74,18 +77,27 @@ public class Main implements Serializable{
            if (choix ==  2){
                run = false;
            }
-
        }
+        Sauvegarder();
 
 
     }
-    public static void sauvegarder(){
+    public static void Sauvegarder(){
         try {
-            ObjectOutputStream enregister = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream("C:\\Users\\treVi1732721\\IdeaProjects\\Liste de Contact\\src\\test.dat")));
-            enregister.writeObject(listeContact);
-            enregister.close();
-        }catch (Exception one){
+            ObjectOutputStream sortie = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream("test.dat")));
+            sortie.writeObject(listeContact);
+            sortie.close();
+        }catch (Exception two){
             System.out.println("Le programme n'a pas été enregistré");
+        }
+    }
+    public static void Charger(){
+        try{
+            ObjectInputStream entree = new ObjectInputStream(new BufferedInputStream(new FileInputStream("test.dat")));
+            listeContact = (HashMap<String, Contact>) entree.readObject();
+            entree.close();
+        }catch(Exception one){
+            System.out.println("Le programme n'a pas trouvé d'enregistrement");
         }
     }
 }

@@ -12,7 +12,7 @@ public class Contact implements Serializable {
     private Adresse adresse = new Adresse();
     private Occupation occupation = new Occupation();
     private List<Telephone> numTélephone = new ArrayList<Telephone>();
-    private int telephone = 0;
+    private int telephone = 0,numero;
 
     public String getPrenom() {
         return prenom;
@@ -44,6 +44,14 @@ public class Contact implements Serializable {
 
     public void setOccupation(Occupation occupation) {
         this.occupation = occupation;
+    }
+
+    public int getNumero() {
+        return numero;
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
     }
 
     public void NewContact(){

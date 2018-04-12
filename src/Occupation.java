@@ -1,9 +1,10 @@
+import java.io.Serializable;
 import java.util.Scanner;
 
 /**
  * Created by TreVi1732721 on 2018-01-22.
  */
-public class Occupation {
+public class Occupation implements Serializable{
     private String poste;
     private Entreprise entreprise = new Entreprise();
 
