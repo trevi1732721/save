@@ -37,22 +37,14 @@ public class Main implements Serializable{
                    break;
                case 2:
                    System.out.println("Quel est le contact à afficher?");
-                   try {
-                       choix = sc.next();
-                       for (int i = 0; i < choix.length(); i++) {
-                           if ((int) choix.toUpperCase().charAt(i) > 90 && (int) choix.toUpperCase().charAt(i) < 65) {
-                               throw new WrongTypeExeption();
-                           }
-                       }
-
-
-                       System.out.println("___________________________________");
-                       System.out.println("Contact " + choix);
-                       listeContact.get(choix).PrintContact();
-                       System.out.println("\n___________________________________");
-                   } catch (WrongTypeExeption one) {
-                       System.out.print("Entrée selement des lettres svp.");
-                   }
+                   choix = sc.next();
+                    VérifierLettre(choix);
+                    if(VérifierLettre(choix)) {
+                        System.out.println("___________________________________");
+                        System.out.println("Contact " + choix);
+                        listeContact.get(choix).PrintContact();
+                        System.out.println("\n___________________________________");
+                    }
                    break;
                case 3:
                    System.out.println("Que voulez vous faire?" +
@@ -97,10 +89,6 @@ public class Main implements Serializable{
                }
 
        }
-       }
-
-
-
     }
     public static void Sauvegarder(){
         try {
@@ -121,5 +109,22 @@ public class Main implements Serializable{
         }catch(Exception one){
             System.out.println("Le programme n'a pas trouvé d'enregistrement");
         }
+    }
+    public static boolean VérifierLettre(String choix) {
+            try {
+                Scanner sc = new Scanner(System.in);
+                choix = sc.next();
+                for (int i = 0; i < choix.length(); i++) {
+                    if ((int) choix.toUpperCase().charAt(i) > 90 && (int) choix.toUpperCase().charAt(i) < 65) {
+                        throw new WrongTypeExeption();
+                    }
+                }
+                return true;
+
+        } catch (WrongTypeExeption one) {
+            System.out.print("Entrée selement des lettres svp.");
+            return false;
+        }
+
     }
 }
